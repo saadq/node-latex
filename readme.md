@@ -28,11 +28,11 @@ latex({ doc }).then(pdfStream => {
 
 ### latex(options)
 
-**options.doc** [String] (Required) - A string of the (La)TeX document you want to use.
+**options.doc** \[String\] *Required* - A string of the (La)TeX document you want to use.
 
-**options.dir** [String] (Optional) - The absolute path to the directory which contains the assets necessary for the doc.
+**options.dir** \[String\] *Optional* - The absolute path to the directory which contains the assets necessary for the doc.
 
-**options.cmd** [String] (Optional) - The command to run for your document (`pdflatex`, `xetex`, etc). `pdflatex` is the default.
+**options.cmd** \[String\] *Optional* - The command to run for your document (`pdflatex`, `xetex`, etc). `pdflatex` is the default.
 
 ## License
 MIT
