@@ -55,8 +55,8 @@ function latex ({ doc, dir, cmd = 'pdflatex' }) {
  * @return {Promise<string>}
  */
 function mkdirTemp (path) {
-  return new Promise(function (resolve, reject) {
-    temp.mkdir(path, function (err, tmpPath) {
+  return new Promise((resolve, reject) => {
+    temp.mkdir(path, (err, tmpPath) => {
       if (err) reject(err)
       resolve(tmpPath)
     })
