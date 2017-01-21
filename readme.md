@@ -19,7 +19,7 @@ const doc = `
   \\end{document}
 `
 
-latex(doc).then(pdfStream => {
+latex({ doc }).then(pdfStream => {
   // Use PDF stream here...
 })
 ```
