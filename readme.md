@@ -30,8 +30,6 @@ latex(doc).then(pdfStream => {
 
 **texDoc** \[String\] *Required* - A string of the (La)TeX document you want to use.
 
-**options.doc** \[String\] - Serves as the same puprose as `texDoc`. If no `texDoc` is provided `options.doc` is used as a fallback.
-
 **options.dir** \[String\] - The absolute path to the directory which contains the assets necessary for the doc.
 
 **options.cmd** \[String\] - The command to run for your document (`pdflatex`, `xetex`, etc). `pdflatex` is the default.
