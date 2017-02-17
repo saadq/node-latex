@@ -13,22 +13,25 @@ temp.track()
 /**
  * Generate a PDF stream from a TeX String.
  *
- * @param {string} opts.doc - The TeX source document.
+ * @param {string} texDoc - The TeX source document.
+ * @param {string} opts.doc - The TeX source document (only use if you want to pass multiple options and keep everything in a single object, otherwise just stick to texDoc)
  * @param {string} opts.dir - The absolute path to the directory with the assets needed for the doc.
  * @param {string} opts.cmd - The specific LaTeX command to run (pdflatex, xetex, etc).
  *
  * @return {Promise<ReadableStream>} - The generated PDF.
  */
-function latex ({ doc, dir, cmd = 'pdflatex' }) {
-  if (!doc) {
+function latex (texDoc, { doc, dir, cmd = 'pdflatex' }) {
+  if (!texDoc && !doc) {
     throw new Error('Error: You must provide a LaTeX document.')
   }
+
+  const document = texDoc || doc
 
   return co(function * () {
     try {
       const tempPath = yield mkdirTemp('latex')
       const texFilePath = join(tempPath, 'doc.tex')
-      yield writeFile(texFilePath, doc)
+      yield writeFile(texFilePath, document)
 
       if (dir) {
         yield copy(dir, tempPath)
@@ -37,8 +40,6 @@ function latex ({ doc, dir, cmd = 'pdflatex' }) {
       process.chdir(tempPath)
       yield spawn(cmd, ['doc.tex', '-halt-on-error'])
       const pdf = createReadStream(join(tempPath, 'doc.pdf'))
-
-      temp.cleanup()
 
       return pdf
     } catch (err) {
