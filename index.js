@@ -2,13 +2,10 @@
 
 const { createReadStream, writeFile } = require('fs-promise')
 const { spawn } = require('child-process-promise')
-const { copy } = require('fs-extra-promise-es6')
+const { copy, remove } = require('fs-extra-promise-es6')
 const { join } = require('path')
 const temp = require('temp')
 const co = require('co')
-
-// Automatically track and cleanup temp files at exit
-temp.track()
 
 /**
  * Generate a PDF stream from a TeX String.
@@ -26,7 +23,7 @@ function latex (doc, { dir, cmd = 'pdflatex' }) {
 
   return co(function * () {
     try {
-      const tempPath = yield mkdirTemp('latex')
+      const tempPath = yield mkdirTemp('node-latex')
       const texFilePath = join(tempPath, 'doc.tex')
       yield writeFile(texFilePath, doc)
 
@@ -37,6 +34,10 @@ function latex (doc, { dir, cmd = 'pdflatex' }) {
       process.chdir(tempPath)
       yield spawn(cmd, ['doc.tex', '-halt-on-error'])
       const pdf = createReadStream(join(tempPath, 'doc.pdf'))
+
+      pdf.on('close', () => {
+        remove(tempPath)
+      })
 
       return pdf
     } catch (err) {
