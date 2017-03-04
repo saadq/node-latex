@@ -5,18 +5,17 @@
   "main": "index.js",
   "author": "Saad Quadri",
   "license": "MIT",
+  "repository": "https://github.com/saadq/node-latex",
   "dependencies": {
-    "child-process-promise": "^2.2.0",
-    "co": "^4.6.0",
-    "fs-extra-promise-es6": "^0.1.1",
-    "fs-promise": "^1.0.0",
-    "temp": "^0.8.3"
+    "fs-extra": "^2.0.0",
+    "string-to-stream": "^1.1.0",
+    "temp": "^0.8.3",
+    "through2": "^2.0.3"
   },
   "keywords": [
     "latex",
     "pdflatex",
     "xetex",
     "pdf"
-  ],
-  "repository": "https://github.com/saadq/node-latex"
+  ]
 }

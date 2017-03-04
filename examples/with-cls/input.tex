@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\textheight=10in
+\pagestyle{empty}
+\raggedright
+
+
+\def\bull{\vrule height 0.8ex width .7ex depth -.1ex }
+
+% BEGIN RESUME DEFINITIONS %%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\area} [2] {
+    \vspace*{-9pt}
+    \begin{verse}
+        \textbf{#1}   #2
+    \end{verse}
+}
+
+\newcommand{\lineunder} {
+    \vspace*{-8pt} \\
+    \hspace*{-18pt} \hrulefill \\
+}
+
+\newcommand{\header} [1] {
+    {\hspace*{-18pt}\vspace*{6pt} \textsc{#1}}
+    \vspace*{-6pt} \lineunder
+}
+
+\newcommand{\employer} [3] {
+    { \textbf{#1} (#2)\\ \underline{\textbf{\emph{#3}}}\\  }
+}
+
+\newcommand{\contact} [3] {
+    \vspace*{-20pt}
+    \begin{center}
+        {\Huge \scshape {#1}}\\
+        \vspace*{5pt}
+        #2 \\ #3
+    \end{center}
+    \vspace*{-10pt}
+}
+
+\newenvironment{achievements}{
+    \begin{list}
+        {$\bullet$}{\topsep 0pt \itemsep -2pt}}{\vspace*{4pt}
+    \end{list}
+}
+
+\newcommand{\schoolwithcourses} [4] {
+    \textbf{#1} #2 $\bullet$ #3\\
+    #4 \\
+    \vspace*{5pt}
+}
+
+\newcommand{\school} [4] {
+    \textbf{#1} #2 $\bullet$ #3\\
+    #4 \\
+}
+% END RESUME DEFINITIONS %%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+    \vspace*{-40pt}
+
+    \contact{Full Name}
+    {Some City, ST, 05550 $\cdot$ (505)~555~5050 \\
+    first@firstlast.com $\cdot$ github.com/firstlast}
+
+    %%%%%%%%%%%%%%%
+    %% Education %%
+    %%%%%%%%%%%%%%%
+
+    \header{Education}
+        \vspace{1mm}
+        \textbf{Some University} \hfill \textit{BS Computer Science} \hfill Some City, ST \hfill Expected: May 2017\\
+
+    \vspace{3mm}
+
+    %%%%%%%%%%%%%%%%%%%%%
+    %% Work Experience %%
+    %%%%%%%%%%%%%%%%%%%%%
+
+    \header{Work Experience}
+        \vspace{1mm}
+
+        \textbf{Some Company} \hfill \textit{Software Engineer Intern} \hfill Some City, ST \hfill Jun 2016 | Aug 2016 \\
+        \begin{itemize} \itemsep 3pt
+            \item Improved search and autofill components to include subdomains.
+            \item Refactored and simplified APIs to use existing components and minimize code duplication.
+            \item Fixed regressions and improved testing to prevent them in the future.
+        \end{itemize}
+
+        \vspace{1mm}
+
+        \textbf{Some Company} \hfill \textit{Coding Advisor} \hfill Some City, ST \hfill Dec 2015 | May 2016 \\
+        \begin{itemize} \itemsep 3pt
+            \item Created a JavaScript project in the new JS course for premium members.
+            \item Taught new coders how to avoid bugs and how to go through the process of fixing existing ones.
+            \item Reviewed general programming topics with students and provided assistance for lessons in Java, HTML, CSS, JavaScript, and Ruby.
+        \end{itemize}
+
+        \vspace{1mm}
+
+        \textbf{Some Company} \hfill \textit{Software Developer Intern} \hfill Some City, ST \hfill Jun 2015 | Nov 2015 \\
+        \begin{itemize} \itemsep 3pt
+            \item Wrote an API that allowed CRUD operations to be used for accessing and manipulating data involving current departments/groups/teams at company.
+            \item Created a UI for admins that used the aforementioned API to automate the process of syncing departments/groups/teams on the site to relevant databases.
+            \item Improved the company site by using cookies to display tailored web-content.
+        \end{itemize}
+
+        \vspace{1mm}
+
+        \textbf{Some Company} \hfill \textit{Web Developer Intern} \hfill Some City, ST \hfill Jan 2015 | Jun 2015 \\
+        \begin{itemize} \itemsep 3pt
+            \item Improved existing web pages by migrating inline-styling to external CSS files, and adding cross-browser compatibility.
+            \item Created front-ends with HTML, CSS, and JavaScript and utilized the jQuery UI library to create responsive widgets.
+            \item Debugged original code base as the sole developer on the team and created a standard for web part development for future employees.
+        \end{itemize}
+
+        \vspace{1mm}
+
+
+    %%%%%%%%%%%%
+    %% Skills %%
+    %%%%%%%%%%%%
+
+    \header{Skills}
+
+    {Programming Languages:} $\:$ JavaScript, Java, Ruby, HTML, XML, CSS, Sass \vspace{1mm}
+    {\\Frameworks/Libraries:} $\:$ $\:$ $\:$ $\:$Node.js, Koa, Express, Sinatra, React, Redux, jQuery, lodash
+
+    \vspace{4mm}
+
+    %%%%%%%%%%%%%%
+    %% Projects %%
+    %%%%%%%%%%%%%%
+
+    \header{Projects}
+    Source code and other projects available at \textit{github.com/firstlast} \\
+
+    \vspace{2mm}
+
+    \textbf{Resume Generator} \textit{Node.js, Koa, React, Redux} \\
+    A webapp for generating LaTeX resumes from form data (including this one). \\
+
+    \vspace{2mm}
+
+    \textbf{Cube Timer} \textit{Node.js, Koa, React, Redux, PostgreSQL}  \hfill \\
+    A modern speedcubing app with a scrambler, timer, and analyzer for cubing statistics. \\
+
+    \vspace{2mm}
+
+    \textbf{Reddit Scraper} \textit{Ruby, Sinatra} \hfill \\
+    A web app that lets you view a collage of images/videos from a subreddit
+
+    \vspace{2mm}
+
+    \textbf{Invoice Generator} \textit{JavaScript, Chrome APIs}  \hfill \\
+    A chrome extension used to automate the process of generating an invoice at X company. \    \
+
+    \vspace{2mm}
+
+    {\textbf{Themes} \textit{XML, JSON} \hfill \\
+    A collection of custom themes for Sublime Text with 30k+ installations.
+
+\end{document}

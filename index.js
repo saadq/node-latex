@@ -1,65 +1,86 @@
 'use strict'
 
-const { createReadStream, writeFile } = require('fs-promise')
-const { spawn } = require('child-process-promise')
-const { copy, remove } = require('fs-extra-promise-es6')
-const { join } = require('path')
+const strToStream = require('string-to-stream')
+const spawn = require('child_process').spawn
+const through = require('through2')
+const fse = require('fs-extra')
 const temp = require('temp')
-const co = require('co')
+const path = require('path')
+const fs = require('fs')
 
-/**
- * Generate a PDF stream from a TeX String.
- *
- * @param {string} doc - The TeX source document.
- * @param {string} opts.dir - The absolute path to the directory with the assets needed for the doc.
- * @param {string} opts.cmd - The specific LaTeX command to run (pdflatex, xetex, etc).
- *
- * @return {Promise<ReadableStream>} - The generated PDF.
- */
-function latex (doc, { dir, cmd = 'pdflatex' }) {
-  if (!doc) {
-    throw new Error('Error: You must provide a LaTeX document.')
+function latex (src, options) {
+  const outputStream = through()
+
+  const handleErrors = (err) => {
+    outputStream.emit('error', err)
+    outputStream.destroySoon()
   }
 
-  return co(function * () {
-    try {
-      const tempPath = yield mkdirTemp('node-latex')
-      const texFilePath = join(tempPath, 'doc.tex')
-      yield writeFile(texFilePath, doc)
+  temp.mkdir('node-latex', (err, tempPath) => {
+    if (err) {
+      handleErrors(err)
+    }
 
-      if (dir) {
-        yield copy(dir, tempPath)
+    let inputStream
+
+    if (!src) {
+      handleErrors(new Error('Error: No TeX document provided.'))
+    }
+
+    if (typeof src === 'string') {
+      inputStream = strToStream(src)
+    } else if (src.pipe) {
+      inputStream = src
+    } else {
+      handleErrors(new Error('Error: Invalid TeX document.'))
+    }
+
+    options = options || {}
+    let inputs = options.inputs || tempPath
+    let cmd = options.cmd || 'pdflatex'
+
+    const isTexCmd = (cmd) => ['pdflatex', 'xetex', 'latex'].indexOf(cmd) !== -1
+
+    const joinInputs = (inputs) =>
+      Array.isArray(inputs)
+        ? inputs.join(':') + ':'
+        : inputs + ':'
+
+    cmd = isTexCmd(cmd) ? cmd : 'pdflatex'
+    inputs = joinInputs(inputs)
+
+    const args = [
+      '-halt-on-error',
+      `-output-directory=${tempPath}`
+    ]
+
+    const opts = {
+      cwd: tempPath,
+      env: Object.assign({}, process.env, { TEXINPUTS: inputs })
+    }
+
+    const tex = spawn(cmd, args, opts)
+
+    inputStream.pipe(tex.stdin)
+
+    tex.on('error', () => {
+      handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
+    })
+
+    tex.on('exit', (code) => {
+      if (code !== 0) {
+        handleErrors(new Error('Error during LaTeX compilation.'))
       }
 
-      process.chdir(tempPath)
-      yield spawn(cmd, ['doc.tex', '-halt-on-error'])
-      const pdf = createReadStream(join(tempPath, 'doc.pdf'))
+      const pdfPath = path.join(tempPath, 'texput.pdf')
+      const pdfStream = fs.createReadStream(pdfPath)
 
-      pdf.on('close', () => {
-        remove(tempPath)
-      })
-
-      return pdf
-    } catch (err) {
-      throw err
-    }
-  })
-}
-
-/**
- * Creates a temp directory to hold the LaTeX output files.
- *
- * @param {string} path - Path of the directory to be created.
- *
- * @return {Promise<string>}
- */
-function mkdirTemp (path) {
-  return new Promise((resolve, reject) => {
-    temp.mkdir(path, (err, tmpPath) => {
-      if (err) reject(err)
-      resolve(tmpPath)
+      pdfStream.pipe(outputStream)
+      pdfStream.on('close', () => fse.removeSync(tempPath))
     })
   })
+
+  return outputStream
 }
 
 module.exports = latex

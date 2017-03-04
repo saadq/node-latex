@@ -2,7 +2,7 @@
 %    for LaTeX version 2.09
 % Copyright (C) 1988,1989 by Michael DeCorte
 
-\typeout{Document Style `doc' <26 Sep 89>.}
+\typeout{Document Style `res' <26 Sep 89>.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % res.sty
@@ -32,138 +32,138 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % You can have multiple style options the legal options ones are:
 %
-%   centered	the name and address are centered at the top of the
-%		page (default)
+%   centered  the name and address are centered at the top of the
+%   page (default)
 %
-%   line	the name is the left with a horizontal line then
-%		the address to the right
+%   line  the name is the left with a horizontal line then
+%   the address to the right
 %
-%   overlapped	the section titles overlap the body text (default)
+%   overlapped  the section titles overlap the body text (default)
 %
-%   margin	the section titles are to the left of the body text
+%   margin  the section titles are to the left of the body text
 %
-%   11pt	use 11 point fonts instead of 10 point fonts
+%   11pt  use 11 point fonts instead of 10 point fonts
 %
-%   12pt	use 12 point fonts instead of 10 point fonts
+%   12pt  use 12 point fonts instead of 10 point fonts
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   \Resume	prints the word resume but typeset nicely
+%   \Resume prints the word resume but typeset nicely
 %
 %   \newsectionwidth{dimen}
-%		defines the amount of space the labels extend
-%		into the left margin.
-%		DO NOT TRY to change any of the dimensions
-%		yourself.  You will probably confuse the style file.
+%   defines the amount of space the labels extend
+%   into the left margin.
+%   DO NOT TRY to change any of the dimensions
+%   yourself.  You will probably confuse the style file.
 %
 %   \name{text} defines your name
 %
 %   \address{text}
-%		defines your address
-%		this can be called twice if you have two addresses
-%		use \\'s to indicate where either line breaks or
-%		comas should go
+%   defines your address
+%   this can be called twice if you have two addresses
+%   use \\'s to indicate where either line breaks or
+%   comas should go
 %
-%   \opening	this prints your name and address at that spot
-%		this is not normally needed, as \begin{resume}
-%		does this but is provided just in case you need
-%		to do something odd
+%   \opening  this prints your name and address at that spot
+%   this is not normally needed, as \begin{resume}
+%   does this but is provided just in case you need
+%   to do something odd
 %
 %   \begin{resume} ... \end{resume}
-%		all of the resume should go inside of this
-%		environment
+%   all of the resume should go inside of this
+%   environment
 %
 %   \section{text}
-%		This prints 'text' in the left hand margin.
-%		Its exact placement depends on what the style
-%		options has been set to. (overlapped or margin)
-%		You should use \\ to start a new line.	If the
-%		style option is margin, the \\ is converted
-%		to a space.
-%		To use this in any of the list environments, put
-%		the \section after the \item[] but before the
-%		text.
-%		Eg.
-%		\begin{itemize}
-%		\item\section{text}
-%		text
-%		\end{itemize}
+%   This prints 'text' in the left hand margin.
+%   Its exact placement depends on what the style
+%   options has been set to. (overlapped or margin)
+%   You should use \\ to start a new line.  If the
+%   style option is margin, the \\ is converted
+%   to a space.
+%   To use this in any of the list environments, put
+%   the \section after the \item[] but before the
+%   text.
+%   Eg.
+%   \begin{itemize}
+%   \item\section{text}
+%   text
+%   \end{itemize}
 %
 %   \begin{ncolumn}{n} ... \end{ncolumn}
-%		creates a tabular environment with n equally
-%		spaced columns.  Separate columns by & and
-%		end them with \\
+%   creates a tabular environment with n equally
+%   spaced columns.  Separate columns by & and
+%   end them with \\
 %
 %   \begin{position} ... \end{position}
-%		this is used to print a job description.  There should
-%		be only one job description in it.  Information
-%		related to the job (such as title, dates...) will
-%		be printed.
+%   this is used to print a job description.  There should
+%   be only one job description in it.  Information
+%   related to the job (such as title, dates...) will
+%   be printed.
 %
 %   \begin{format} ... \end{format}
-%		used to change the default format for the position
-%		environment.  Within it the recognized commands are:
-%		\title{option}
-%		\employer{option}
-%		\location{option}
-%		\dates{option}
-%		\body
-%		\\
-%		where option is one of l,r,c standing for left, right, center.
-%		The format will eventually be used to make several
-%		tabular environments and you are defining the number of columns
-%		and the placement of text within the columns of the tabulars.
-%		Each row is terminated by a \\.  Any number of options can
-%		be on a line, they will each be set in their own columns.
-%		Any of the options except \body may be left out.
+%   used to change the default format for the position
+%   environment.  Within it the recognized commands are:
+%   \title{option}
+%   \employer{option}
+%   \location{option}
+%   \dates{option}
+%   \body
+%   \\
+%   where option is one of l,r,c standing for left, right, center.
+%   The format will eventually be used to make several
+%   tabular environments and you are defining the number of columns
+%   and the placement of text within the columns of the tabulars.
+%   Each row is terminated by a \\.  Any number of options can
+%   be on a line, they will each be set in their own columns.
+%   Any of the options except \body may be left out.
 %
-%		Eg.
-%		\begin{format}
-%		\title{l}\employer{r}\\
-%		\dates{r}\\
-%		\body\\
-%		\location{l}\\
-%		\end{format}
+%   Eg.
+%   \begin{format}
+%   \title{l}\employer{r}\\
+%   \dates{r}\\
+%   \body\\
+%   \location{l}\\
+%   \end{format}
 %
-%		In this example the title and employer information
-%		are set in 2 columns left justified and right justified
-%		respectively.  Then the date is set right justified.
-%		Then the body is set.  Then the location is set left
-%		justified.
+%   In this example the title and employer information
+%   are set in 2 columns left justified and right justified
+%   respectively.  Then the date is set right justified.
+%   Then the body is set.  Then the location is set left
+%   justified.
 %
 % \employer{text}
 % \title{text}
 % \dates{text}
 % \location{text}
-%		declare text for the next invocation of the position
-%		environment
+%   declare text for the next invocation of the position
+%   environment
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Glue
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% sectionskip	the amount of horizontal before a section
+% sectionskip the amount of horizontal before a section
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Dimensions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% sectionwidth	the amount that the section titles go in the
-%		left margin
+% sectionwidth  the amount that the section titles go in the
+%   left margin
 %
-% resumewidth	the width of the total resume from the left
-%		margin to the right.  Don't use textwidth
+% resumewidth the width of the total resume from the left
+%   margin to the right.  Don't use textwidth
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% sectionfont	the font used to print section titles
-%		use \renewcommand to change it
+% sectionfont the font used to print section titles
+%   use \renewcommand to change it
 %
-% namefont	the font used to print your name
-%		use \renewcommand to change it
+% namefont  the font used to print your name
+%   use \renewcommand to change it
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % THINGS TO DO
@@ -180,7 +180,7 @@
 % write docs to tell people how to use this
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{doc}[2000/05/19 v1.4b Resume class]
+\ProvidesClass{res}[2000/05/19 v1.4b Resume class]
 
 %\DeclareOption{11pt}{\renewcommand\@ptsize{1}}
 %\DeclareOption{12pt}{\renewcommand\@ptsize{2}}
@@ -200,13 +200,13 @@
 \ExecuteOptions{overlapped,centered}
 \ProcessOptions\relax
 
-\nofiles	     % resume's don't need .aux files
+\nofiles       % resume's don't need .aux files
 
 
-\newtoks\tabular@text		    % holds the current list being processed
-\newtoks\tabular@head		    % holds the head tabular list
-\newtoks\tabular@tail		    % holds the tail tabular list
-\newtoks\@ta			    % used by \@append
+\newtoks\tabular@text       % holds the current list being processed
+\newtoks\tabular@head       % holds the head tabular list
+\newtoks\tabular@tail       % holds the tail tabular list
+\newtoks\@ta          % used by \@append
 \newtoks\undefined@token\undefined@token={}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -225,7 +225,7 @@
     }{
       % two addresses
       \leavevmode\hbox to \textwidth{\@tablebox{\@addressone}\hfil
-				     \@tablebox{\@addresstwo}}\par
+             \@tablebox{\@addresstwo}}\par
     }%
   }%
 \endgroup}
@@ -247,8 +247,8 @@
   }{%
     \leavevmode\hbox to \textwidth
       {\hfill\vbox{\hbox{\@addressone}
-		   \hbox{\@addresstwo}
-		  }%
+       \hbox{\@addresstwo}
+      }%
       }\par
   }
 \endgroup}
@@ -284,11 +284,11 @@
 \sectionskip=3.5ex plus 1ex minus -.2ex % values stolen from LaTeX
 
 \def\newsectionwidth#1{%
-		     \sectionwidth=#1
-		     \textwidth=\resumewidth
-		     \advance\textwidth-\sectionwidth
-		     \hsize=\textwidth
-		     \hoffset=\sectionwidth
+         \sectionwidth=#1
+         \textwidth=\resumewidth
+         \advance\textwidth-\sectionwidth
+         \hsize=\textwidth
+         \hoffset=\sectionwidth
 }
 
 
@@ -329,9 +329,9 @@
   \ifx\\\@tabcr    % is this in a tabular? (this *should* work but is a cludge)
     \@stopfield    % the is the first part of a \kill
    \else
-     \@@par	     % This will end the previous paragraph if needed and
-		   % go into vertical mode.  If this was already in
-		   % vertical mode then the \par does nothing.
+     \@@par      % This will end the previous paragraph if needed and
+       % go into vertical mode.  If this was already in
+       % vertical mode then the \par does nothing.
 
   \fi
   \begingroup
@@ -339,51 +339,51 @@
   \def\par{\@@par}%
   \let\\=\@normalcr
   \addpenalty{\@secpenalty} % this would be a good place for a page break
-			    % \@secpenalty is what LaTeX uses before its
-			    % section's.  It happens to be -300
+          % \@secpenalty is what LaTeX uses before its
+          % section's.  It happens to be -300
   \addvspace{\sectionskip}  % put in a bit of glue
   % The following hbox will be contributed to the page list without going
   % into horizontal mode.  Therefore, any \parindent's, \parshape's, \leftskip
   % will be ignored but \hoffset's are not.  The result is that the box will
   % only by \hoffset. This is what I want
   \hbox to 0pt{%
-    \hss	 % this is an llap.  In other words, this glue
-		 % will shrink by the width of the stuff in the vbox
-		 % (\sectionwidth) into the left margin and then
-		 % insert the contents of the vbox.
+    \hss   % this is an llap.  In other words, this glue
+     % will shrink by the width of the stuff in the vbox
+     % (\sectionwidth) into the left margin and then
+     % insert the contents of the vbox.
     \vtop to 0pt{% make a 0pt height paragraph, with the baseline at the
-		 % lined up with the baseline of the first box in the list
+     % lined up with the baseline of the first box in the list
       \leftskip=0pt
       \hsize=\sectionwidth
       \textwidth=\sectionwidth
       \raggedright     % you don't want this filled out to the right margin
       \sectionfont
-      #1\vss	       % Go into horizontal mode; do the paragraph;
-		       % go into vertical mode; add some negative glue
-		       % to give a box of 0pt height and depth
+      #1\vss         % Go into horizontal mode; do the paragraph;
+           % go into vertical mode; add some negative glue
+           % to give a box of 0pt height and depth
     }%
   }%
   \addpenalty{-\@secpenalty} % this would be a bad place for a page break
   \vskip-\baselineskip % when the next box is processed, baselineskip glue
-		       % glue will be added (the box has no depth because of
-		       % the \vss; therefore, we don't have to worry about
-		       % \lineskiplimit).  This -\baselineskip glue
-		       % is to undo this.  \nointerlineskip doesn't
-		       % work because the baseline of this line would be lined
-		       % up with the top of the top of the next box.  We
-		       % want the baselines lined up.
-		       %
-		       % It may have been possible to do this by forcing the
-		       % baseline of this box to be the top of the box but
-		       % then the interline skip between this box and the
-		       % previous box would be off as the baselines of the
-		       % this box (the one that being made above) and the
-		       % previous line would be separated by \baselineskip
-		       % (probably, it may be separted by the depth of the
-		       % previous box + \lineskip) but as the baseline of
-		       % this box has been moved to the top, the box's would
-		       % separted by to much glue.  The exact amount being
-		       % the height of this box.
+           % glue will be added (the box has no depth because of
+           % the \vss; therefore, we don't have to worry about
+           % \lineskiplimit).  This -\baselineskip glue
+           % is to undo this.  \nointerlineskip doesn't
+           % work because the baseline of this line would be lined
+           % up with the top of the top of the next box.  We
+           % want the baselines lined up.
+           %
+           % It may have been possible to do this by forcing the
+           % baseline of this box to be the top of the box but
+           % then the interline skip between this box and the
+           % previous box would be off as the baselines of the
+           % this box (the one that being made above) and the
+           % previous line would be separated by \baselineskip
+           % (probably, it may be separted by the depth of the
+           % previous box + \lineskip) but as the baseline of
+           % this box has been moved to the top, the box's would
+           % separted by to much glue.  The exact amount being
+           % the height of this box.
   \endgroup
   \ifx\\\@tabcr   % is this in a tabular? (this *should* work but is a cludge)
     % this is the second part of the \kill; it starts the next tabbing line
@@ -394,13 +394,13 @@
     \ignorespaces
   \else
     \vskip-\parskip    % The next thing to be contributed will be a paragraph.
-		       % Right before being contributed though a \vskip\parskip
-		       % will be inserted.  This is to negate it.
-		       %
-		       % I do consider this to be a bit of a cludge but
-		       % I can not find a way to write \unskipfutureskip
-		       % or a way to make TeX think that nothing has
-		       % been contributed to the page list.
+           % Right before being contributed though a \vskip\parskip
+           % will be inserted.  This is to negate it.
+           %
+           % I do consider this to be a bit of a cludge but
+           % I can not find a way to write \unskipfutureskip
+           % or a way to make TeX think that nothing has
+           % been contributed to the page list.
   \fi
 }
 
@@ -452,8 +452,8 @@
 % overlapped section titles
 %
 % format is:
-%    title	 employer
-%    location	 dates
+%    title   employer
+%    location  dates
 %    body
 % with everything in the left of its column
 
@@ -471,8 +471,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % makes a line of width \textwidth starting at -\hoffset
 %
-\def\fullline{		% hrules only listen to \hoffset
-  \nointerlineskip	% so I have this code
+\def\fullline{    % hrules only listen to \hoffset
+  \nointerlineskip  % so I have this code
   \moveleft\hoffset\vbox{\hrule width\textwidth}
   \nointerlineskip
 }
@@ -505,10 +505,10 @@
 %
 \def\opening{\def\@opening{}
   \begingroup
-  \leftskip=-\hoffset	     % I use leftskip to move things to the left as
+  \leftskip=-\hoffset      % I use leftskip to move things to the left as
   \advance\textwidth\hoffset % changing hoffset doesn't work. But this
-  \hsize=\textwidth	     % doesn't really work as hboxes are rules
-			     % are unaffeted
+  \hsize=\textwidth      % doesn't really work as hboxes are rules
+           % are unaffeted
   \let\par=\@@par
   \parindent=0pt
   \parskip=0pt
@@ -520,7 +520,7 @@
 % all of the resume goes in the resume environment
 %
 \newenvironment{resume}{\begingroup
-		       \@ifundefined{@opening}{\opening}{}
+           \@ifundefined{@opening}{\opening}{}
 }{\endgroup}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -533,12 +533,12 @@
 \def\@endpbox{\par\egroup\hfil}
 \let\@@endpbox=\@endpbox
 
-\newdimen\@columnwidth	  % the width of each column equal to
+\newdimen\@columnwidth    % the width of each column equal to
 \def\ncolumn#1{%
   % \@columnwidth = \textwidth / #1
   \@columnwidth=\textwidth \divide\@columnwidth by #1
   \begin{tabular*}{\textwidth}[t]%
-	{*{#1}{@{}p{\@columnwidth}@{\extracolsep{\fill}}}}
+  {*{#1}{@{}p{\@columnwidth}@{\extracolsep{\fill}}}}
 }
 
 \def\endncolumn{\end{tabular*}}
@@ -566,9 +566,9 @@
 % \@format{name}{justify}
 % will define \print@#1 to print it's one argument
 % justified according to #2 which can be
-%	  l = left
-%	  r = right
-%	  c = center
+%   l = left
+%   r = right
+%   c = center
 %
 % eg.
 %    \@format{employer}{c}
@@ -589,7 +589,7 @@
 %  \location{pos}
 %  \dates{pos}
 %  \title{pos}
-%  \body	    (for the body of the position environment)
+%  \body      (for the body of the position environment)
 %   where pos is
 %     l for left
 %     r for right
@@ -624,22 +624,22 @@
   \c@numberofcolumns 0
   \let\\=\end@line@head
   \def\employer##1{\advance\c@numberofcolumns 1
-		   \@format{employer}{##1}
-		   \append@tabular@text{employer}}
+       \@format{employer}{##1}
+       \append@tabular@text{employer}}
   \def\location##1{\advance\c@numberofcolumns 1
-		   \@format{location}{##1}
-		   \append@tabular@text{location}}
+       \@format{location}{##1}
+       \append@tabular@text{location}}
   \def\dates##1{\advance\c@numberofcolumns 1
-		\@format{dates}{##1}
-		\append@tabular@text{dates}}
+    \@format{dates}{##1}
+    \append@tabular@text{dates}}
   \def\title##1{\advance\c@numberofcolumns 1
-		 \@format{title}{##1}
-		\append@tabular@text{title}}
+     \@format{title}{##1}
+    \append@tabular@text{title}}
   \def\body{\iftoks\tabular@head\undefined@token\then
-	    \else
-	      \@append{\noexpand\\}\to\tabular@head
-	    \skotfi
-	    \let\\=\end@line@tail}}{}
+      \else
+        \@append{\noexpand\\}\to\tabular@head
+      \skotfi
+      \let\\=\end@line@tail}}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %taken from page 378 of TeXbook but freely hacked
@@ -662,9 +662,9 @@
 
 \let \then = \empty
 \def \iftoks #1#2\then #3\else #4\skotfi{
-		\edef \1{\the #1}
-		\edef \2{\the #2}
-		\ifx \1\2\then #3\else #4\fi}
+    \edef \1{\the #1}
+    \edef \2{\the #2}
+    \ifx \1\2\then #3\else #4\fi}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -672,7 +672,7 @@
 %
 % appends command to the end of \tabular@text.
 % NOTE: command MUST be a command but without the \
-%	Eg. \append@tabular@text{relax}
+% Eg. \append@tabular@text{relax}
 %
 % used to define \tabular@text for the tabular environment
 % used by append@tabular@head and append@tabular@tail
@@ -692,7 +692,7 @@
 %
 % appends command to the end of \tabular@text@head
 % NOTE: command MUST be a command but without the \
-%	Eg. \append@tabular@head{relax}
+% Eg. \append@tabular@head{relax}
 %
 % used to define \tabular@head for the tabular environment
 % used by the position environment
@@ -718,7 +718,7 @@
 %
 % appends command to the end of \tabular@text@htail
 % NOTE: command MUST be a command but without the \
-%	Eg. \append@tabular@tail{relax}
+% Eg. \append@tabular@tail{relax}
 %
 % used to define \tabular@tail for the tabular environment
 % used by the position environment
@@ -766,8 +766,8 @@
 % overlapped section titles
 %
 % format is:
-%    title	 employer
-%    location	 dates
+%    title   employer
+%    location  dates
 %    body
 % with everything in the left of its column
 
