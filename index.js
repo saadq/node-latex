@@ -13,7 +13,7 @@ function latex (src, options) {
 
   const handleErrors = (err) => {
     outputStream.emit('error', err)
-    outputStream.destroySoon()
+    outputStream.destroy()
   }
 
   temp.mkdir('node-latex', (err, tempPath) => {
