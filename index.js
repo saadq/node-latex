@@ -39,14 +39,11 @@ function latex (src, options) {
     let inputs = options.inputs || tempPath
     let cmd = options.cmd || 'pdflatex'
 
-    const isTexCmd = (cmd) => ['pdflatex', 'xetex', 'latex'].indexOf(cmd) !== -1
-
     const joinInputs = (inputs) =>
       Array.isArray(inputs)
         ? inputs.join(':') + ':'
         : inputs + ':'
 
-    cmd = isTexCmd(cmd) ? cmd : 'pdflatex'
     inputs = joinInputs(inputs)
 
     const args = [
