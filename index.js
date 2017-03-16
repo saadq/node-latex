@@ -38,6 +38,15 @@ function latex (src, options) {
     options = options || {}
     let inputs = options.inputs || tempPath
     let cmd = options.cmd || 'pdflatex'
+    // The number of times to run LaTeX.
+    let passes = options.passes || 1
+    let completedPasses = 0
+
+    if (passes > 1 && typeof src !== 'string') {
+      handleErrors(new Error('Error: You can\'t process a stream twice. Pass '
+          + 'a string to use multiple passes'));
+      return;
+    }
 
     const isTexCmd = (cmd) => ['pdflatex', 'xetex', 'latex'].indexOf(cmd) !== -1
 
@@ -59,32 +68,47 @@ function latex (src, options) {
       env: Object.assign({}, process.env, { TEXINPUTS: inputs })
     }
 
-    const tex = spawn(cmd, args, opts)
+    // Run LaTeX once on the document stream, then decide whether it needs to
+    // happen again.
+    let runLatex = (inputStream) => {
+      const tex = spawn(cmd, args, opts)
 
-    inputStream.pipe(tex.stdin)
+      inputStream.pipe(tex.stdin)
 
-    // If LaTeX exits with a compilation error, it will close stdin and
-    // stream.pipe() will emit EPIPE. Catch it here; otherwise EPIPE is thrown
-    // and Node will crash.
-    tex.stdin.on('error', handleErrors);
+      // If LaTeX exits with a compilation error, it will close stdin and
+      // stream.pipe() will emit EPIPE. Catch it here; otherwise EPIPE is thrown
+      // and Node will crash.
+      tex.stdin.on('error', handleErrors);
 
-    tex.on('error', () => {
-      handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
-    })
+      tex.on('error', () => {
+        handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
+      })
 
-    tex.on('exit', (code) => {
-      if (code !== 0) {
-        handleErrors(new Error('Error during LaTeX compilation.'))
-        // Don't try to read the PDF if compilation failed; it may not exist.
-        return;
-      }
+      tex.on('exit', (code) => {
+        if (code !== 0) {
+          handleErrors(new Error('Error during LaTeX compilation.'))
+          // Don't try to read the PDF if compilation failed; it may not exist.
+          return;
+        }
 
+        // Schedule another run if necessary.
+        completedPasses++;
+        if (completedPasses >= passes) returnDocument();
+        else runLatex(strToStream(src));
+      })
+    }
+
+    // After the final run, return the PDF stream.
+    let returnDocument = () => {
       const pdfPath = path.join(tempPath, 'texput.pdf')
       const pdfStream = fs.createReadStream(pdfPath)
 
       pdfStream.pipe(outputStream)
       pdfStream.on('close', () => fse.removeSync(tempPath))
-    })
+    }
+
+    // Start the first run.
+    runLatex(inputStream);
   })
 
   return outputStream
