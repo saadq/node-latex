@@ -6,11 +6,20 @@
   "author": "Saad Quadri",
   "license": "MIT",
   "repository": "https://github.com/saadq/node-latex",
+  "scripts": {
+    "lint": "standard | snazzy",
+    "fix": "standard --fix",
+    "test": "npm run --silent lint"
+  },
   "dependencies": {
     "fs-extra": "^2.0.0",
     "string-to-stream": "^1.1.0",
     "temp": "^0.8.3",
     "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "snazzy": "^6.0.0",
+    "standard": "^9.0.2"
   },
   "keywords": [
     "latex",
