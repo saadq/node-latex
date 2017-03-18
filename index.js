@@ -60,7 +60,6 @@ function latex (src, options) {
 
     const args = [
       '-halt-on-error',
-      `-output-directory=${tempPath}`
     ]
 
     const opts = {
