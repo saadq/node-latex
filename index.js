@@ -8,9 +8,20 @@ const temp = require('temp')
 const path = require('path')
 const fs = require('fs')
 
+/**
+ * Generates a PDF stream from a LaTeX document.
+ *
+ * @param {String} src - The LaTeX document.
+ * @param {Object} options - Optional compilation specifications.
+ *
+ * @return {DestroyableTransform}
+ */
 function latex (src, options) {
   const outputStream = through()
 
+  /**
+   * Emits any errors to the returned output stream.
+   */
   const handleErrors = (err) => {
     outputStream.emit('error', err)
     outputStream.destroy()
@@ -36,45 +47,54 @@ function latex (src, options) {
     }
 
     options = options || {}
-    let inputs = options.inputs || tempPath
-    let cmd = options.cmd || 'pdflatex'
+
+    // The path(s) to your TEXINPUTS.
+    const inputs = options.inputs || tempPath
+
+    // The binary command to run (`pdflatex`, `xetex`, etc).
+    const cmd = options.cmd || 'pdflatex'
+
     // The number of times to run LaTeX.
-    let passes = options.passes || 1
+    const passes = options.passes || 1
+
+    // The current amount of times LaTeX has run so far.
     let completedPasses = 0
 
     if (passes > 1 && typeof src !== 'string') {
-      handleErrors(new Error('Error: You can\'t process a stream twice. Pass '
-          + 'a string to use multiple passes'));
-      return;
+      const msg = 'Error: You can\'t process a stream twice. Pass a string to use multiple passes.'
+      handleErrors(new Error(msg))
+
+      return
     }
 
+    /**
+     * Combines all TEXINPUTS into a single PATH to be added to process.env.
+     */
     const joinInputs = (inputs) =>
       Array.isArray(inputs)
         ? inputs.join(':') + ':'
         : inputs + ':'
 
-    inputs = joinInputs(inputs)
-
     const args = [
-      '-halt-on-error',
+      '-halt-on-error'
     ]
 
     const opts = {
       cwd: tempPath,
-      env: Object.assign({}, process.env, { TEXINPUTS: inputs })
+      env: Object.assign({}, process.env, { TEXINPUTS: joinInputs(inputs) })
     }
 
-    // Run LaTeX once on the document stream, then decide whether it needs to
-    // happen again.
-    let runLatex = (inputStream) => {
+    /**
+     * Runs a LaTeX child process on the document stream
+     * and then decides whether it needs to do it again.
+     */
+    const runLatex = (inputStream) => {
       const tex = spawn(cmd, args, opts)
 
       inputStream.pipe(tex.stdin)
 
-      // If LaTeX exits with a compilation error, it will close stdin and
-      // stream.pipe() will emit EPIPE. Catch it here; otherwise EPIPE is thrown
-      // and Node will crash.
-      tex.stdin.on('error', handleErrors);
+      // Prevent Node from crashing on compilation error.
+      tex.stdin.on('error', handleErrors)
 
       tex.on('error', () => {
         handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
@@ -83,19 +103,22 @@ function latex (src, options) {
       tex.on('exit', (code) => {
         if (code !== 0) {
           handleErrors(new Error('Error during LaTeX compilation.'))
-          // Don't try to read the PDF if compilation failed; it may not exist.
-          return;
+          return
         }
 
+        completedPasses++
+
         // Schedule another run if necessary.
-        completedPasses++;
-        if (completedPasses >= passes) returnDocument();
-        else runLatex(strToStream(src));
+        completedPasses >= passes
+          ? returnDocument()
+          : runLatex(strToStream(src))
       })
     }
 
-    // After the final run, return the PDF stream.
-    let returnDocument = () => {
+    /**
+     * Returns the PDF stream after the final run.
+     */
+    const returnDocument = () => {
       const pdfPath = path.join(tempPath, 'texput.pdf')
       const pdfStream = fs.createReadStream(pdfPath)
 
@@ -104,7 +127,7 @@ function latex (src, options) {
     }
 
     // Start the first run.
-    runLatex(inputStream);
+    runLatex(inputStream)
   })
 
   return outputStream
