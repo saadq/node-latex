@@ -48,14 +48,11 @@ function latex (src, options) {
       return;
     }
 
-    const isTexCmd = (cmd) => ['pdflatex', 'xetex', 'latex'].indexOf(cmd) !== -1
-
     const joinInputs = (inputs) =>
       Array.isArray(inputs)
         ? inputs.join(':') + ':'
         : inputs + ':'
 
-    cmd = isTexCmd(cmd) ? cmd : 'pdflatex'
     inputs = joinInputs(inputs)
 
     const args = [
