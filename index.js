@@ -63,6 +63,11 @@ function latex (src, options) {
 
     inputStream.pipe(tex.stdin)
 
+    // If LaTeX exits with a compilation error, it will close stdin and
+    // stream.pipe() will emit EPIPE. Catch it here; otherwise EPIPE is thrown
+    // and Node will crash.
+    tex.stdin.on('error', handleErrors);
+
     tex.on('error', () => {
       handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
     })
@@ -70,6 +75,8 @@ function latex (src, options) {
     tex.on('exit', (code) => {
       if (code !== 0) {
         handleErrors(new Error('Error during LaTeX compilation.'))
+        // Don't try to read the PDF if compilation failed; it may not exist.
+        return;
       }
 
       const pdfPath = path.join(tempPath, 'texput.pdf')
