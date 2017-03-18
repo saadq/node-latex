@@ -29,5 +29,7 @@ latex(input).pipe(output)
 
 **options.cmd** \[String\] - The command to run for your document (`pdflatex`, `xetex`, etc). `pdflatex` is the default.
 
+**options.passes** \[Number\] - The number of times to run `options.cmd`. Some documents require multiple passes. Only works when `doc` is a String. Defaults to `1`.
+
 ## License
 MIT
