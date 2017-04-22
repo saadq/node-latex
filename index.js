@@ -16,7 +16,7 @@ const fs = require('fs')
  *
  * @return {DestroyableTransform}
  */
-function latex (src, options) {
+function latex(src, options) {
   const outputStream = through()
 
   /**
