@@ -87,6 +87,9 @@ function latex(src, options) {
     // The path(s) to your TEXINPUTS.
     const inputs = options.inputs || tempPath
 
+    // The path(s) to your font inputs for fontspec.
+    const fonts = options.fonts || tempPath
+
     // The binary command to run (`pdflatex`, `xetex`, etc).
     const cmd = options.cmd || 'pdflatex'
 
@@ -107,9 +110,9 @@ function latex(src, options) {
     }
 
     /**
-     * Combines all TEXINPUTS into a single PATH to be added to process.env.
+     * Combines all paths into a single PATH to be added to process.env.
      */
-    const joinInputs = inputs =>
+    const joinPaths = inputs =>
       Array.isArray(inputs)
         ? `${inputs.join(':')}:`
         : `${inputs}:`
@@ -120,7 +123,11 @@ function latex(src, options) {
 
     const opts = {
       cwd: tempPath,
-      env: Object.assign({}, process.env, { TEXINPUTS: joinInputs(inputs) })
+      env: Object.assign({}, process.env, {
+        TEXINPUTS: joinPaths(inputs),
+        TTFONTS: joinPaths(fonts),
+        OPENTYPEFONTS: joinPaths(fonts)
+      })
     }
 
     /**

@@ -27,6 +27,8 @@ latex(input).pipe(output)
 
 **options.inputs** \[String|Array<String>\] - The absolute path (or an array of absolute paths) to the directory which contains the assets necessary for the doc.
 
+**options.fonts** \[String|Array<String>\] - The absolute path (or an array of absolute paths) to the directory which contains the fonts necessary for the doc (you will most likely want to use this option if you're working with `fontspec`).
+
 **options.cmd** \[String\] - The command to run for your document (`pdflatex`, `xetex`, etc). `pdflatex` is the default.
 
 **options.passes** \[Number\] - The number of times to run `options.cmd`. Some documents require multiple passes. Only works when `doc` is a String. Defaults to `1`.
