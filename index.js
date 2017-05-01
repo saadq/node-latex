@@ -28,23 +28,35 @@ function latex(src, options) {
   }
 
   /**
-   * Parses the generated log file and emits error to the output stream.
+   * Emits errors from logs to output stream, and also gives full log to user if requested.
    */
-  const printErrors = (tempPath) => {
+  const printErrors = (tempPath, userLogPath) => {
     const errorLogPath = path.join(tempPath, 'texput.log')
     const errorLogStream = fs.createReadStream(errorLogPath)
 
-    let errors = []
+    if (userLogPath) {
+      const userLogStream = fs.createWriteStream(userLogPath)
+      errorLogStream.pipe(userLogStream)
+    }
+
+    const errors = []
 
     errorLogStream.on('data', (data) => {
       const lines = data.toString().split('\n')
-      const errLines = lines.filter(line => line.startsWith('!'))
 
-      errors = errors.concat(errLines)
+      lines.forEach((line, i) => {
+        if (line.startsWith('! Undefined control sequence.')) {
+          errors.push(lines[i - 1])
+          errors.push(lines[i])
+          errors.push(lines[i + 1])
+        } else if (line.startsWith('!')) {
+          errors.push(line)
+        }
+      })
     })
 
     errorLogStream.on('end', () => {
-      const errMessage = `LaTeX Error\n${errors.join('\n')}`
+      const errMessage = `LaTeX Syntax Error\n${errors.join('\n')}`
       const error = new Error(errMessage)
 
       outputStream.emit('error', error)
@@ -80,6 +92,9 @@ function latex(src, options) {
 
     // The number of times to run LaTeX.
     const passes = options.passes || 1
+
+    // The path to where the user wants to save the error log file to.
+    const userLogPath = options.errorLogs
 
     // The current amount of times LaTeX has run so far.
     let completedPasses = 0
@@ -126,7 +141,7 @@ function latex(src, options) {
 
       tex.on('exit', (code) => {
         if (code !== 0) {
-          printErrors(tempPath)
+          printErrors(tempPath, userLogPath)
           return
         }
 

@@ -31,5 +31,7 @@ latex(input).pipe(output)
 
 **options.passes** \[Number\] - The number of times to run `options.cmd`. Some documents require multiple passes. Only works when `doc` is a String. Defaults to `1`.
 
+**options.errorLogs** \[String] - The path to the file where you want to save the contents of the error log to.
+
 ## License
 MIT
