@@ -78,12 +78,12 @@ balanced-match@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
 
-blyss@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/blyss/-/blyss-1.0.1.tgz#663c4362d8c2c9466fcdb970c82ccfd124228a52"
+blyss@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/blyss/-/blyss-2.0.0.tgz#de640b0e9d5b3cf74728190710e7c9e14af366f1"
   dependencies:
     eslint "^3.19.0"
-    eslint-config-blyss "^1.0.0"
+    eslint-config-blyss "^2.0.0"
     eslint-config-standard "^10.2.1"
     eslint-config-standard-jsx "^4.0.1"
     eslint-plugin-import "^2.2.0"
@@ -328,9 +328,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-blyss@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-blyss/-/eslint-config-blyss-1.0.0.tgz#20003d082dfcfbd62d14811c60f9c1bd1c9d0d13"
+eslint-config-blyss@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-blyss/-/eslint-config-blyss-2.0.0.tgz#7654f797dde8ea232aef605763880be7021aa36c"
 
 eslint-config-standard-jsx@3.3.0:
   version "3.3.0"

@@ -20,11 +20,35 @@ function latex(src, options) {
   const outputStream = through()
 
   /**
-   * Emits any errors to the returned output stream.
+   * Emits the given error to the returned output stream.
    */
   const handleErrors = (err) => {
     outputStream.emit('error', err)
     outputStream.destroy()
+  }
+
+  /**
+   * Parses the generated log file and emits error to the output stream.
+   */
+  const printErrors = (tempPath) => {
+    const errorLogPath = path.join(tempPath, 'texput.log')
+    const errorLogStream = fs.createReadStream(errorLogPath)
+
+    let errors = []
+
+    errorLogStream.on('data', (data) => {
+      const lines = data.toString().split('\n')
+      const errLines = lines.filter(line => line.startsWith('!'))
+
+      errors = errors.concat(errLines)
+    })
+
+    errorLogStream.on('end', () => {
+      const errMessage = `LaTeX Error\n${errors.join('\n')}`
+      const error = new Error(errMessage)
+
+      outputStream.emit('error', error)
+    })
   }
 
   temp.mkdir('node-latex', (err, tempPath) => {
@@ -70,10 +94,10 @@ function latex(src, options) {
     /**
      * Combines all TEXINPUTS into a single PATH to be added to process.env.
      */
-    const joinInputs = (inputs) =>
+    const joinInputs = inputs =>
       Array.isArray(inputs)
-        ? inputs.join(':') + ':'
-        : inputs + ':'
+        ? `${inputs.join(':')}:`
+        : `${inputs}:`
 
     const args = [
       '-halt-on-error'
@@ -102,7 +126,7 @@ function latex(src, options) {
 
       tex.on('exit', (code) => {
         if (code !== 0) {
-          handleErrors(new Error('Error during LaTeX compilation.'))
+          printErrors(tempPath)
           return
         }
 

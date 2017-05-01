@@ -18,7 +18,7 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
-    "blyss": "^1.0.1",
+    "blyss": "^2.0.0",
     "snazzy": "^6.0.0"
   },
   "keywords": [
