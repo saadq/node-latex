@@ -170,6 +170,7 @@ function latex(src, options) {
 
       pdfStream.pipe(outputStream)
       pdfStream.on('close', () => fse.removeSync(tempPath))
+      pdfStream.on('error', handleErrors)
     }
 
     // Start the first run.
