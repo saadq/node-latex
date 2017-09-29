@@ -117,7 +117,7 @@ function latex(src, options) {
         ? `${inputs.join(':')}:`
         : `${inputs}:`
 
-    const args = [
+    const args = options.args || [
       '-halt-on-error'
     ]
 
