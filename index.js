@@ -146,6 +146,12 @@ function latex(src, options) {
         handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
       })
 
+      tex.stdout.on('data', (data) => {});
+
+      tex.stderr.on('data', (data) => {});
+
+      tex.on('close', (code) => {});
+
       tex.on('exit', (code) => {
         if (code !== 0) {
           printErrors(tempPath, userLogPath)
