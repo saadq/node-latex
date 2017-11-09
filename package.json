@@ -1,6 +1,6 @@
 {
   "name": "node-latex",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "A small wrapper for LaTeX.",
   "main": "index.js",
   "author": "Saad Quadri",
