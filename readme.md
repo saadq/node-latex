@@ -1,6 +1,10 @@
 # node-latex
 A small wrapper for generating PDFs with LaTeX in Node.
 
+## Requirements
+
+LaTeX must be installed on your machine.  You can download it [here](https://www.latex-project.org/get/).
+
 ## Install
 
 ```
