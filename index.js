@@ -136,19 +136,20 @@ function latex(src, options) {
      */
 
     const indexCmd = options.makeindex ? 'makeindex' : false
-    var   indexArgs = ['-g'];
+    var   indexArgs = [];
 
     if (options.indexStyle) {
-      fs.writeFileSync(path.join(tempPath, 'index.ist'), options.indexStyle, 'utf8');
-      indexArgs.push('-s texput.ist');
+      fs.writeFileSync(path.join(tempPath, 'texput.ist'), options.indexStyle, 'utf8');
+      indexArgs.push('-g');
+      indexArgs.push('-s');
+      indexArgs.push('texput.ist');
     }
-    
+
+    indexArgs.push('-o');
+    indexArgs.push('texput.ind');
     indexArgs.push('texput.idx');
 
-    const indexOpts = {
-      cwd: tempPath,
-      env: Object.assign({}, process.env)
-    }
+    const indexOpts = {cwd: tempPath}
 
 
     /**
