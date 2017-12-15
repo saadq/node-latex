@@ -19,8 +19,10 @@ const fs = require('fs')
 
 const input = fs.createReadStream('input.tex')
 const output = fs.createWriteStream('output.pdf')
+const pdf = latex(input)
 
-latex(input).pipe(output)
+pdf.pipe(output)
+pdf.on('error', err => console.error(err))
 ```
 
 ## API
