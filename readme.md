@@ -23,6 +23,7 @@ const pdf = latex(input)
 
 pdf.pipe(output)
 pdf.on('error', err => console.error(err))
+pdf.on('finish', () => console.log('PDF generated!'))
 ```
 
 ## API
