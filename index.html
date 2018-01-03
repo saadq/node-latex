@@ -1,0 +1,272 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>node-latex</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>
+      body {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        background: black;
+        color: #555d65;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      }
+
+      header, main {
+        margin: 0 auto;
+        padding: 0 2em;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 4em;
+        font-weight: lighter;
+        letter-spacing: 3px;
+        margin: 15% 0;
+        color: #868e96;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        margin-top: 50px;
+        padding-bottom: 5px;
+        color: #868e96;
+      }
+
+      h3 {
+        font-size: 1em;
+        margin-top: 25px;
+      }
+
+      h3:first-of-type {
+        margin-top: 15px;
+      }
+
+      pre, code {
+        font-family: Fira Mono;
+      }
+
+      pre {
+        background: black;
+        color: #868e96;
+        border: 1px solid #111;
+        margin: 15px 0;
+        padding: 15px 10px;
+        font-size: 0.85em;
+        line-height: 1.5;
+      }
+
+      table {
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      table, th, td {
+        border: 1px solid #111;
+        padding: 10px;
+      }
+
+      th {
+        color: #868e96;
+        font-weight: bold;
+      }
+
+      td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      td:first-child {
+        color: #868e96;
+      }
+
+      td:last-child {
+        text-align: left;
+      }
+
+      .hljs {
+        background: black;
+        color: #555d65;
+      }
+
+      .hljs-keyword {
+        font-weight: normal;
+      }
+
+      .hljs-built_in {
+        color: inherit;
+      }
+
+      .hljs-string, .hljs-number {
+        color: #868e96;
+      }
+
+      .github-corner {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 8em;
+        border: none !important;
+      }
+
+      .github-corner svg {
+        fill: #868e96;
+        color: black;
+        border: 0;
+        width: 100%;
+        height: auto;
+      }
+
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+
+      @keyframes octocat-wave {
+        0%, 100% { transform: rotate(0); }
+        20%, 60% { transform: rotate(-25deg); }
+        40%, 80% { transform: rotate(10deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="https://www.npmjs.com/package/node-latex"><h1>node-latex</h1></a>
+    </header>
+    <main>
+      <h2>Installation</h2>
+      <pre><code class="js">npm install node-latex</code></pre>
+      <h2>Examples</h2>
+    <h3>File Input</h3>
+    <pre><code class="js">const latex = require('node-latex')
+const fs = require('fs')
+
+const input = fs.createReadStream('input.tex')
+const output = fs.createWriteStream('output.pdf')
+const pdf = latex(doc)
+
+pdf.pipe(output)
+pdf.on('error', err => console.error(err))
+pdf.on('finish', () => console.log('PDF generated!'))
+</code></pre>
+      <h3>String Input</h3>
+      <pre><code class="js">const latex = require('node-latex')
+const fs = require('fs')
+
+const input = `
+  \\documentclass{article}
+  \\begin{document}
+  Hello World!
+  \\end{document}
+`
+
+const output = fs.createWriteStream('output.pdf')
+const pdf = latex(input)
+
+pdf.pipe(output)
+pdf.on('error', err => console.error(err))
+pdf.on('finish', () => console.log('PDF generated!'))
+</code></pre>
+      <h3>Passing Options</h3>
+      <pre><code class="js">const latex = require('node-latex')
+const fs = require('fs')
+
+const input = fs.createReadStream('input.tex')
+const output = fs.createWriteStream('output.pdf')
+
+const pdf = latex(doc, {
+  cmd: 'xelatex',
+  passes: 2
+})
+
+pdf.pipe(output)
+pdf.on('error', err => console.error(err))
+pdf.on('finish', () => console.log('PDF generated!'))
+</code></pre>
+      <h2>API</h2>
+      <pre><code class="js">latex(doc[, options])</code></pre>
+      <table>
+        <thead>
+          <tr>
+            <th>arg</th>
+            <th>required</th>
+            <th>type</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>doc</td>
+            <td>yes</td>
+            <td><code>ReadableStream</code> | <code>String</code></td>
+            <td>The LaTeX document you want to use.</td>
+          </tr>
+          <tr>
+            <td>options.inputs</td>
+            <td>no</td>
+            <td><code>String</code> | <code>Array&lt;String&gt;</code></td>
+            <td>The absolute path (or an array of absolute paths) to the directory which contains the assets necessary for the doc.</td>
+          </tr>
+          <tr>
+            <td>options.fonts</td>
+            <td>no</td>
+            <td><code>String</code> | <code>Array&lt;String&gt;</code></td>
+            <td>The absolute path (or an array of absolute paths) to the directory which contains the fonts necessary for the doc.</td>
+          </tr>
+          <tr>
+            <td>options.cmd</td>
+            <td>no</td>
+            <td><code>String</code></td>
+            <td>The command to run for your document (pdflatex, xetex, etc). pdflatex is the default.</td>
+          </tr>
+          <tr>
+            <td>options.args</td>
+            <td>no</td>
+            <td><code>Array&lt;String&gt;</code></td>
+            <td>Arguments passed to cmd. Defaults to ['-halt-on-error'].</td>
+          </tr>
+          <tr>
+            <td>options.passes</td>
+            <td>no</td>
+            <td><code>Number</code></td>
+            <td>The number of times to run options.cmd. Some documents require multiple passes. Only works when doc is a String. Defaults to 1</td>
+          </tr>
+          <tr>
+            <td>options.errorLogs</td>
+            <td>no</td>
+            <td><code>String</code></td>
+            <td>The path to the file where you want to save the contents of the error log to.</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <a href="https://github.com/saadq/node-latex" class="github-corner" aria-label="View source on Github">
+      <svg width="180" height="180" viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+      </svg>
+    </a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad()</script>
+  </body>
+</html>
