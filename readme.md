@@ -26,7 +26,7 @@ pdf.on('error', err => console.error(err))
 pdf.on('finish', () => console.log('PDF generated!'))
 ```
 
-View more examples [here](http://saadq.com/node-latex).
+View more examples [here](https://github.com/saadq/node-latex/tree/master/examples).
 
 ## API
 
