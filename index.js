@@ -4,7 +4,7 @@ const strToStream = require('string-to-stream')
 const spawn = require('child_process').spawn
 const through = require('through2')
 const fse = require('fs-extra')
-const temp = require('temp')
+const temp = require('temp').track()
 const path = require('path')
 const fs = require('fs')
 
