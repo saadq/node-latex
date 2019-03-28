@@ -113,9 +113,8 @@ function latex(src, options) {
      * Combines all paths into a single PATH to be added to process.env.
      */
     const joinPaths = inputs =>
-      Array.isArray(inputs)
-        ? `${inputs.join(':')}:`
-        : `${inputs}:`
+      (Array.isArray(inputs) ? inputs.join(path.delimiter) : inputs) +
+      path.delimiter
 
     const args = options.args || [
       '-halt-on-error'
