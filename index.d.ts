@@ -1,4 +1,4 @@
-import { Readable } from 'stream'
+import { Readable, Transform } from 'stream'
 
 /**
  * node-latex options
