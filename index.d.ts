@@ -53,4 +53,4 @@ interface INodeLatexOptions {
 declare function latex(doc: Readable | string, options?: INodeLatexOptions)
   : Readable
 
-export = latex
+export default latex
