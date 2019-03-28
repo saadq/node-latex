@@ -3,6 +3,7 @@
   "version": "2.4.5",
   "description": "A small wrapper for LaTeX.",
   "main": "index.js",
+  "types": "./index.d.ts",
   "author": "Saad Quadri",
   "license": "MIT",
   "repository": "https://github.com/saadq/node-latex",
