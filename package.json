@@ -3,6 +3,7 @@
   "version": "2.4.7",
   "description": "A small wrapper for LaTeX.",
   "main": "index.js",
+  "types": "./index.d.ts",
   "author": "Saad Quadri",
   "license": "MIT",
   "repository": "https://github.com/saadq/node-latex",
@@ -12,6 +13,7 @@
     "test": "npm run --silent lint"
   },
   "dependencies": {
+    "@types/node": "^11.12.0",
     "fs-extra": "^2.0.0",
     "string-to-stream": "^1.1.0",
     "temp": "^0.8.3",
