@@ -51,6 +51,6 @@ interface INodeLatexOptions {
  * The compiler options
  */
 declare function latex(doc: Readable | string, options?: INodeLatexOptions)
-  : Readable
+  : Transform
 
 export default latex
