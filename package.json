@@ -1,6 +1,6 @@
 {
   "name": "node-latex",
-  "version": "2.4.7",
+  "version": "2.6.0",
   "description": "A small wrapper for LaTeX.",
   "main": "index.js",
   "types": "./index.d.ts",
