@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/node@^11.12.0":
+  version "11.13.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.18.tgz#758ec2bf26339d3cc83da22676b64777d0c2befe"
+
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
@@ -852,8 +856,8 @@ lodash.cond@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
 lodash@^4.0.0, lodash@^4.3.0:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
 
 minimatch@^3.0.2, minimatch@^3.0.3:
   version "3.0.3"
