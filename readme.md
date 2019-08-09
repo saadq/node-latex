@@ -34,9 +34,9 @@ View more examples [here](https://github.com/saadq/node-latex/tree/master/exampl
 
 **doc** \[ReadableStream|String\] *Required* - The (La)TeX document you want to use.
 
-**options.inputs** \[String|Array<String>\] - The absolute path (or an array of absolute paths) to the directory which contains the assets necessary for the doc.
+**options.inputs** \[String|Array<String>\] - The path (or an array of paths) to the directory which contains the assets necessary for the doc.
 
-**options.fonts** \[String|Array<String>\] - The absolute path (or an array of absolute paths) to the directory which contains the fonts necessary for the doc (you will most likely want to use this option if you're working with `fontspec`).
+**options.fonts** \[String|Array<String>\] - The path (or an array of paths) to the directory which contains the fonts necessary for the doc (you will most likely want to use this option if you're working with `fontspec`).
 
 **options.cmd** \[String\] - The command to run for your document (`pdflatex`, `xetex`, etc). `pdflatex` is the default.
 
