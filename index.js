@@ -35,7 +35,7 @@ function latex(src, options) {
     const errorLogStream = fs.createReadStream(errorLogPath)
 
     if (userLogPath) {
-      const userLogStream = fs.createWriteStream(userLogPath)
+      const userLogStream = fs.createWriteStream(path.resolve(userLogPath))
       errorLogStream.pipe(userLogStream)
     }
 
@@ -84,11 +84,18 @@ function latex(src, options) {
 
     options = options || {}
 
+    function resolvePaths(paths) {
+      if (Array.isArray(paths)) {
+        return paths.map(pth => path.resolve(pth))
+      }
+      return path.resolve(paths)
+    }
+
     // The path(s) to your TEXINPUTS.
-    const inputs = options.inputs || tempPath
+    const inputs = options.inputs ? resolvePaths(options.inputs) : tempPath
 
     // The path(s) to your font inputs for fontspec.
-    const fonts = options.fonts || tempPath
+    const fonts = options.fonts ? resolvePaths(options.fonts) : tempPath
 
     // The binary command to run (`pdflatex`, `xetex`, etc).
     const cmd = options.cmd || 'pdflatex'
