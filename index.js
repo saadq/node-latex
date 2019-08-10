@@ -35,7 +35,7 @@ function latex(src, options) {
     const errorLogStream = fs.createReadStream(errorLogPath)
 
     if (userLogPath) {
-      const userLogStream = fs.createWriteStream(userLogPath)
+      const userLogStream = fs.createWriteStream(path.resolve(userLogPath))
       errorLogStream.pipe(userLogStream)
     }
 
