@@ -126,6 +126,7 @@ function latex(src, options) {
     const args = options.args || [
       '-halt-on-error'
     ]
+    args.push('-jobname=texput')
 
     const opts = {
       cwd: tempPath,
