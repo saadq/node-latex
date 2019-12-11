@@ -32,34 +32,42 @@ function latex(src, options) {
    */
   const printErrors = (tempPath, userLogPath) => {
     const errorLogPath = path.join(tempPath, 'texput.log')
-    const errorLogStream = fs.createReadStream(errorLogPath)
 
-    if (userLogPath) {
-      const userLogStream = fs.createWriteStream(path.resolve(userLogPath))
-      errorLogStream.pipe(userLogStream)
-    }
+    fs.stat(errorLogPath, (err, stats) => {
+      if (err || !stats.isFile()) {
+        outputStream.emit('error', new Error('No error log file.'))
+        return
+      }
 
-    const errors = []
+      const errorLogStream = fs.createReadStream(errorLogPath)
 
-    errorLogStream.on('data', (data) => {
-      const lines = data.toString().split('\n')
+      if (userLogPath) {
+        const userLogStream = fs.createWriteStream(path.resolve(userLogPath))
+        errorLogStream.pipe(userLogStream)
+      }
 
-      lines.forEach((line, i) => {
-        if (line.startsWith('! Undefined control sequence.')) {
-          errors.push(lines[i - 1])
-          errors.push(lines[i])
-          errors.push(lines[i + 1])
-        } else if (line.startsWith('!')) {
-          errors.push(line)
-        }
+      const errors = []
+
+      errorLogStream.on('data', (data) => {
+        const lines = data.toString().split('\n')
+
+        lines.forEach((line, i) => {
+          if (line.startsWith('! Undefined control sequence.')) {
+            errors.push(lines[i - 1])
+            errors.push(lines[i])
+            errors.push(lines[i + 1])
+          } else if (line.startsWith('!')) {
+            errors.push(line)
+          }
+        })
       })
-    })
 
-    errorLogStream.on('end', () => {
-      const errMessage = `LaTeX Syntax Error\n${errors.join('\n')}`
-      const error = new Error(errMessage)
+      errorLogStream.on('end', () => {
+        const errMessage = `LaTeX Syntax Error\n${errors.join('\n')}`
+        const error = new Error(errMessage)
 
-      outputStream.emit('error', error)
+        outputStream.emit('error', error)
+      })
     })
   }
 
@@ -153,11 +161,11 @@ function latex(src, options) {
         handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
       })
 
-      tex.stdout.on('data', (data) => {});
+      tex.stdout.on('data', (data) => { });
 
-      tex.stderr.on('data', (data) => {});
+      tex.stderr.on('data', (data) => { });
 
-      tex.on('close', (code) => {});
+      tex.on('close', (code) => { });
 
       tex.on('exit', (code) => {
         if (code !== 0) {
