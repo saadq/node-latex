@@ -35,7 +35,7 @@ function latex(src, options) {
 
     fs.stat(errorLogPath, (err, stats) => {
       if (err || !stats.isFile()) {
-        outputStream.emit('error', new Error('LaTeX Syntax Error'))
+        outputStream.emit('error', new Error('No error log file.'))
         return
       }
 
@@ -161,11 +161,11 @@ function latex(src, options) {
         handleErrors(new Error(`Error: Unable to run ${cmd} command.`))
       })
 
-      tex.stdout.on('data', (data) => {});
+      tex.stdout.on('data', (data) => { });
 
-      tex.stderr.on('data', (data) => {});
+      tex.stderr.on('data', (data) => { });
 
-      tex.on('close', (code) => {});
+      tex.on('close', (code) => { });
 
       tex.on('exit', (code) => {
         if (code !== 0) {
