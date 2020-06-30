@@ -3,7 +3,7 @@ import { Readable, Transform } from 'stream'
 /**
  * node-latex options
  */
-interface INodeLatexOptions {
+export interface LatexOptions {
   /**
    * The absolute path (or an array of absolute paths) to the directory which
    * contains the assets necessary for the doc.
@@ -12,7 +12,7 @@ interface INodeLatexOptions {
 
   /**
    * The absolute path (or an array of absolute paths) to the directory which
-    * contains the fonts necessary for the doc (you will most likely want to use
+   * contains the fonts necessary for the doc (you will most likely want to use
    * this option if you're working with fontspec).
    */
   fonts?: string | string[]
@@ -50,7 +50,9 @@ interface INodeLatexOptions {
  * @param options
  * The compiler options
  */
-declare function latex(doc: Readable | string, options?: INodeLatexOptions)
-  : Transform
+declare function latex(
+  doc: Readable | string,
+  options?: LatexOptions
+): Transform
 
 export default latex
