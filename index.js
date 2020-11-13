@@ -114,6 +114,15 @@ function latex(src, options) {
     // The path to where the user wants to save the error log file to.
     const userLogPath = options.errorLogs
 
+    // The path(s) to your precompiled files.
+    const precompiled = options.precompiled ? resolvePaths(options.precompiled) : null
+
+    const copyPrecompiled = (pathToPrecompiled) => {
+      fs.readdirSync(pathToPrecompiled).forEach(file =>
+        fs.copyFileSync(path.resolve(pathToPrecompiled, file), path.resolve(tempPath, file))
+      )
+    }
+
     // The current amount of times LaTeX has run so far.
     let completedPasses = 0
 
@@ -195,6 +204,9 @@ function latex(src, options) {
     }
 
     // Start the first run.
+    if (precompiled) {
+      Array.isArray(precompiled) ? precompiled.forEach(copyPrecompiled) : copyPrecompiled(precompiled)
+    }
     runLatex(inputStream)
   })
 
