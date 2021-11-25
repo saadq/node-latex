@@ -44,6 +44,7 @@ function latex(src, options) {
       if (userLogPath) {
         const userLogStream = fs.createWriteStream(path.resolve(userLogPath))
         errorLogStream.pipe(userLogStream)
+        userLogStream.on('error', (userLogStreamErr) => handleErrors(userLogStreamErr))
       }
 
       const errors = []
