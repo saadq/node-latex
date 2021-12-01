@@ -48,5 +48,9 @@ View more examples [here](https://github.com/saadq/node-latex/tree/master/exampl
 
 **options.errorLogs** \[String] - The path to the file where you want to save the contents of the error log to.
 
+**options.makeindex** \[Bool] - if true, makeindex will be run after every pass.
+
+**options.indexStyle** \[String] - Index style file, will be temporary stored as a file and passed to makeindex as .sty file.
+
 ## License
 MIT

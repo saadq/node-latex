@@ -2,6 +2,7 @@
 
 const strToStream = require('string-to-stream')
 const spawn = require('child_process').spawn
+const spawnSync = require('child_process').spawnSync
 const through = require('through2')
 const fse = require('fs-extra')
 const temp = require('temp').track()
@@ -156,6 +157,27 @@ function latex(src, options) {
     }
 
     /**
+     * Indexing after each LaTeX pass
+     */
+
+    const indexCmd = options.makeindex ? 'makeindex' : false
+    var   indexArgs = [];
+
+    if (options.indexStyle) {
+      fs.writeFileSync(path.join(tempPath, 'texput.ist'), options.indexStyle, 'utf8');
+      indexArgs.push('-g');
+      indexArgs.push('-s');
+      indexArgs.push('texput.ist');
+    }
+
+    indexArgs.push('-o');
+    indexArgs.push('texput.ind');
+    indexArgs.push('texput.idx');
+
+    const indexOpts = {cwd: tempPath}
+
+
+    /**
      * Runs a LaTeX child process on the document stream
      * and then decides whether it needs to do it again.
      */
@@ -182,6 +204,11 @@ function latex(src, options) {
           printErrors(tempPath, userLogPath)
           return
         }
+
+        if (indexCmd !== false) {
+          let _indexResult = spawnSync(indexCmd, indexArgs, indexOpts)
+        }
+
 
         completedPasses++
 
