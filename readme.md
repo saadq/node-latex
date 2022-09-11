@@ -48,5 +48,7 @@ View more examples [here](https://github.com/saadq/node-latex/tree/master/exampl
 
 **options.errorLogs** \[String] - The path to the file where you want to save the contents of the error log to.
 
+**options.auxiliary** \[String] - The path to where the user wants to save the AUX and LOG files to.
+
 ## License
 MIT
