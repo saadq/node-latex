@@ -39,6 +39,11 @@ export interface LatexOptions {
    * to.
    */
   errorLogs?: string
+
+  /**
+   * The path to where the user wants to save the AUX and LOG files to.
+   */
+  auxiliary?: string
 }
 
 /**

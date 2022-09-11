@@ -118,10 +118,21 @@ function latex(src, options) {
     // The path(s) to your precompiled files.
     const precompiled = options.precompiled ? resolvePaths(options.precompiled) : null
 
+    // The path to where the user wants to save the AUX and LOG files to.
+    const auxiliaryPath = options.auxiliary
+
     const copyPrecompiled = (pathToPrecompiled) => {
       fs.readdirSync(pathToPrecompiled).forEach(file =>
         fs.copyFileSync(path.resolve(pathToPrecompiled, file), path.resolve(tempPath, file))
       )
+    }
+
+    const copyAuxiliaryFiles = (pathToAuxiliaryFiles) => {
+      fs.readdirSync(tempPath).forEach(file => {
+        if (file.endsWith('.aux') || file.endsWith('.log')) {
+          fs.copyFileSync(path.resolve(tempPath, file), path.resolve(pathToAuxiliaryFiles, file))
+        }
+      })
     }
 
     // The current amount of times LaTeX has run so far.
@@ -200,6 +211,11 @@ function latex(src, options) {
       const pdfStream = fs.createReadStream(pdfPath)
 
       pdfStream.pipe(outputStream)
+
+      if (auxiliaryPath) {
+        copyAuxiliaryFiles(auxiliaryPath)
+      }
+      
       pdfStream.on('close', () => fse.removeSync(tempPath))
       pdfStream.on('error', handleErrors)
     }
