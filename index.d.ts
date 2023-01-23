@@ -1,3 +1,4 @@
+import { ChildProcess } from 'child_process'
 import { Readable, Transform } from 'stream'
 
 /**
@@ -39,6 +40,12 @@ export interface LatexOptions {
    * to.
    */
   errorLogs?: string
+
+  /**
+   * A function to call on each LaTeX invocation. The only argument is an instance
+   * of ChildProcess.
+   */
+  spawnCallback?: (proc: ChildProcess) => void
 }
 
 /**
