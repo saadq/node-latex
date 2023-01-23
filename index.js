@@ -162,6 +162,10 @@ function latex(src, options) {
     const runLatex = (inputStream) => {
       const tex = spawn(cmd, args, opts)
 
+      if (options.spawnCallback) {
+        options.spawnCallback(tex);
+      }
+
       inputStream.pipe(tex.stdin)
 
       // Prevent Node from crashing on compilation error.

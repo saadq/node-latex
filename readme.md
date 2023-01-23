@@ -48,5 +48,7 @@ View more examples [here](https://github.com/saadq/node-latex/tree/master/exampl
 
 **options.errorLogs** \[String] - The path to the file where you want to save the contents of the error log to.
 
+**options.spawnCallback** \[Function] - A function to call on each LaTeX invocation. The only argument is an instance of `ChildProcess`.
+
 ## License
 MIT
